@@ -1,5 +1,18 @@
 var geolocate = document.getElementById('geolocate');
-var coordinates = document.getElementById('coordinates');
+var coords = {
+    lat: 0,
+    long: 0
+};
+// create the map
+var map = L.map('map');
+map.setView([coords.lat, coords.long], 3);
+// add th mapbox street layer to the map
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoibWFyY2VhdWRhdmlkIiwiYSI6ImNqaDYzMmI4bjFkaXczMnByd3NqMmRlMmIifQ.JMtTasa8j29837RLwwcVOQ'
+}).addTo(map);
 
 function getCurrentPosition() {
     if (navigator.geolocation) {
@@ -11,9 +24,12 @@ function getCurrentPosition() {
 }
 
 function showCurrentPosition(position) {
-    var lat = position.coords.latitude
-    var long = position.coords.longitude
-    coordinates.innerHTML = "<p>Latitude: " + lat + "</p><p>Longitude: " + long + "</p>";
+    coords.lat = position.coords.latitude;
+    coords.long = position.coords.longitude;
+    console.log("Latitude: " + coords.lat + " Longitude: " + coords.long);
+    map.setView([coords.lat, coords.long], 13)
+    var marker = L.marker([coords.lat, coords.long]).addTo(map);
+    marker.bindPopup("<b>You are here !</b>").openPopup();
 }
 
 geolocate.addEventListener('click', () => {
