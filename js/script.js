@@ -1,8 +1,28 @@
 var geolocate = document.getElementById('geolocate');
 var coords = {
+    time: 0,
     lat: 0,
     long: 0
 };
+
+if (localStorage.getItem(0)) {
+    var i = localStorage.getItem(0)
+} else {
+    var i = 0;
+}
+
+window.onload = () => {
+    for (let a = 1; a < localStorage.length; a++) {
+        showData(a);
+    }
+}
+
+window.onbeforeunload = () => {
+    if (localStorage.length == i) {
+        localStorage.setItem(0, i);
+    }
+}
+
 var popup = document.getElementById('pop-close');
 // create the map
 var map = L.map('map');
@@ -43,6 +63,25 @@ function showCurrentPosition(position) {
     map.setView([coords.lat, coords.long], 13)
     var marker = L.marker([coords.lat, coords.long]).addTo(map);
     marker.bindPopup("<b>You are here !</b>").openPopup();
+    var coordsJSON = JSON.stringify(coords);
+    i++;
+    localStorage.setItem(i, coordsJSON);
+    showData(i);
+}
+
+function showData(index) {
+    var data = JSON.parse(localStorage.getItem(index));
+    console.log(data);
+    var table = document.getElementById('table');
+    var row = table.insertRow(index);
+    var id = row.insertCell(0);
+    var time = row.insertCell(1);
+    var lat = row.insertCell(2);
+    var long = row.insertCell(3);
+    id.innerHTML = index;
+    time.innerHTML = data.time;
+    lat.innerHTML = data.lat.toFixed(5);
+    long.innerHTML = data.long.toFixed(5);
 }
 
 geolocate.addEventListener('click', () => {
@@ -55,4 +94,8 @@ track.addEventListener('click', () => {
 
 popup.addEventListener('click', () => {
     popup.parentElement.style.visibility = "hidden";
+})
+
+menu.addEventListener('click', () => {
+    panel.classList.toggle('active');
 })

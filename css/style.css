@@ -14,6 +14,74 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+}
+
+#menu {
+    z-index: 5;
+    position: absolute;
+    margin: 20px 20px 20px auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+}
+
+#menu:hover {
+    cursor: pointer;
+}
+
+#map {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.panel {
+    z-index: 4;
+    position: absolute;
+    right: 0;
+    margin: 0;
+    display: block;
+    width: 0;
+    height: 100%;
+    background-color: #444444;
+    transition: width .5s;
+}
+
+.scroll {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+.active {
+    width: 400px;
+}
+
+#table {
+    width: 100%;
+    border-collapse: collapse;
+    vertical-align: top;
+    color: #ffffff;
+    font-family: 'Montserrat-Light';
+}
+
+th,
+td {
+    width: 100px;
+    padding: 10px;
+    border: .1em solid #ffffff;
+}
+
+th {
+    font-family: 'Montserrat';
 }
 
 #map {
@@ -111,5 +179,50 @@ body {
     .pop-action>svg {
         width: 10px;
         height: 10px;
+    }
+
+    table,
+    tbody,
+    tr,
+    td,
+    th {
+        display: block
+    }
+
+    th {
+        display: none;
+    }
+
+    td {
+        position: relative;
+        border: none;
+        border-bottom: .1em solid #ffffff;
+        width: 50%;
+        padding-left: 50%;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 50%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    td:nth-of-type(1):before {
+        content: "Identifiant";
+    }
+
+    td:nth-of-type(2):before {
+        content: "Heure";
+    }
+
+    td:nth-of-type(3):before {
+        content: "Latitude";
+    }
+
+    td:nth-of-type(4):before {
+        content: "Longitude";
     }
 }
