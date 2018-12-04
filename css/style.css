@@ -1,3 +1,13 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(../fonts/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: Montserrat-Bold;
+    src: url(../fonts/Montserrat-Bold.ttf);
+}
+
 html,
 body {
     height: 100%;
@@ -9,4 +19,97 @@ body {
 #map {
     width: 100%;
     height: 100%;
+}
+
+.popup {
+    z-index: 1000;
+    position: absolute;
+    visibility: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 400px;
+    height: 150px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 1px solid #cccccc;
+    border-radius: 20px;
+}
+
+#pop-close {
+    width: 24px;
+    height: 24px;
+    align-self: flex-end;
+    margin: 10px 10px 0px 0px;
+    cursor: pointer;
+}
+
+.pop-text {
+    margin: 0px;
+    margin-bottom: 20px;
+    color: #444444;
+    text-align: center;
+    font-family: 'Montserrat-Bold';
+    font-size: 1em;
+}
+
+.pop-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.pop-action>button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #00bcd4;
+    border-radius: 50px;
+    background-color: #00bcd4;
+    color: #ffffff;
+    font-family: 'Montserrat';
+    font-size: 1em;
+    cursor: pointer;
+    transition: color .5s, background-color .5s;
+}
+
+.pop-action>button:hover {
+    border: 1px solid #00bcd4;
+    background-color: #ffffff;
+    color: #00bcd4;
+}
+
+.pop-action>button>svg {
+    width: 24px;
+    height: 24px;
+    padding-right: 5px;
+}
+
+.pop-action>button:hover svg>path {
+    fill: #00bcd4;
+}
+
+@media screen and (max-width: 400px) {
+    .popup {
+        width: 100%;
+    }
+
+    .pop-action>button {
+        font-size: .8em;
+    }
+
+    .pop-action>svg {
+        width: 10px;
+        height: 10px;
+    }
 }

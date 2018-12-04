@@ -3,6 +3,7 @@ var coords = {
     lat: 0,
     long: 0
 };
+var popup = document.getElementById('pop-close');
 // create the map
 var map = L.map('map');
 map.setView([coords.lat, coords.long], 3);
@@ -17,11 +18,23 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 function getCurrentPosition() {
     if (navigator.geolocation) {
         // return a coordinate object to the function specified in the parameter.
+        popup.parentElement.style.visibility = "hidden";
         navigator.geolocation.getCurrentPosition(showCurrentPosition);
     } else {
         console.log("Sorry, Geolocation is not enabled in your browser");
     }
 }
+
+function watchCurrentPosition() {
+    if (navigator.geolocation) {
+        // return a coordinate object to the function specified in the parameter.
+        popup.parentElement.style.visibility = "hidden";
+        navigator.geolocation.watchPosition(showCurrentPosition);
+    } else {
+        console.log("Sorry, Geolocation is not enabled in your browser");
+    }
+}
+
 
 function showCurrentPosition(position) {
     coords.lat = position.coords.latitude;
@@ -34,4 +47,12 @@ function showCurrentPosition(position) {
 
 geolocate.addEventListener('click', () => {
     getCurrentPosition();
+})
+
+track.addEventListener('click', () => {
+    watchCurrentPosition();
+})
+
+popup.addEventListener('click', () => {
+    popup.parentElement.style.visibility = "hidden";
 })
