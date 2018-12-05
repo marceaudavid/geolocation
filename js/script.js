@@ -1,3 +1,8 @@
+// TO-DO : - Navigate to a position stored in history on the map 
+//         - 
+//         - Make the table responsive
+
+
 var geolocate = document.getElementById('geolocate');
 var track = document.getElementById('track');
 var coords = {
@@ -7,6 +12,7 @@ var coords = {
 };
 var menu = document.getElementById('menu');
 var panel = document.getElementById('panel');
+var del = document.getElementById('delete');
 
 var i;
 
@@ -19,6 +25,7 @@ if (localStorage.getItem(0)) {
 window.onload = () => {
     for (let i = 1; i < localStorage.length; i++) {
         showData(i);
+        dataEvents(i);
     }
 }
 
@@ -87,7 +94,23 @@ function showData(index) {
     id.innerHTML = index;
     time.innerHTML = data.time;
     lat.innerHTML = data.lat.toFixed(5)
-    long.innerHTML = data.long
+    long.innerHTML = data.long.toFixed(5)
+}
+
+function dataEvents(i) {
+    var table = document.getElementById('table');
+    var rows = table.getElementsByTagName('tr');
+    var row = rows[i];
+    row.addEventListener('click', () => {
+        let data = row.getElementsByTagName('td');
+        let lat = parseFloat(data[2].innerHTML);
+        console.log(lat);
+
+        let long = parseFloat(data[3].innerHTML);
+        console.log(long);
+
+        setMapPosition(lat, long);
+    })
 }
 
 geolocate.addEventListener('click', () => {
@@ -100,4 +123,11 @@ track.addEventListener('click', () => {
 
 menu.addEventListener('click', () => {
     panel.classList.toggle('active');
+    del.classList.toggle('btn-active');
+})
+
+del.addEventListener('click', () => {
+    let table = document.getElementById('table');
+    table.getElementsByTagName('tbody')[0].innerHTML = "";
+    localStorage.clear();
 })

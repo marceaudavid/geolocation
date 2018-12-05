@@ -126,6 +126,15 @@ th {
     transition: color .5s, background-color .5s;
 }
 
+.delete {
+    visibility: hidden;
+    margin: 20px auto;
+}
+
+.btn-active {
+    visibility: visible;
+}
+
 .btn-group>button {
     margin: 0 0 20px 0;
 }
