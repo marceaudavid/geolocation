@@ -8,6 +8,7 @@
         Marceau David
     </author>
     <content src="index.html" />
+    <icon src="www/assets/img/icon.png" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -23,8 +24,8 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <engine name="ios" spec="~4.5.5" />
-    <engine name="android" spec="~7.1.4" />
-    <engine name="browser" spec="~5.0.4" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <engine name="ios" spec="^4.5.5" />
+    <engine name="android" spec="^7.1.4" />
+    <engine name="browser" spec="^5.0.4" />
 </widget>
