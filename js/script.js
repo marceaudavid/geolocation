@@ -1,8 +1,3 @@
-// TO-DO : - Navigate to a position stored in history on the map 
-//         - 
-//         - Make the table responsive
-
-
 var geolocate = document.getElementById('geolocate');
 var track = document.getElementById('track');
 var coords = {
@@ -75,7 +70,6 @@ function showCurrentPosition(position) {
     coords.time = date.toLocaleTimeString();
     coords.lat = position.coords.latitude;
     coords.long = position.coords.longitude;
-    console.log("Latitude: " + coords.lat + " Longitude: " + coords.long);
     setMapPosition(coords.lat, coords.long);
     var coordsJSON = JSON.stringify(coords);
     i++;
@@ -104,11 +98,7 @@ function dataEvents(i) {
     row.addEventListener('click', () => {
         let data = row.getElementsByTagName('td');
         let lat = parseFloat(data[2].innerHTML);
-        console.log(lat);
-
         let long = parseFloat(data[3].innerHTML);
-        console.log(long);
-
         setMapPosition(lat, long);
     })
 }
@@ -130,4 +120,5 @@ del.addEventListener('click', () => {
     let table = document.getElementById('table');
     table.getElementsByTagName('tbody')[0].innerHTML = "";
     localStorage.clear();
+    i = 0;
 })
