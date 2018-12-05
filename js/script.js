@@ -11,12 +11,14 @@ var del = document.getElementById('delete');
 
 var i;
 
+// get the row counter if stored
 if (localStorage.getItem(0)) {
     i = localStorage.getItem(0)
 } else {
     i = 0;
 }
 
+// restore the history on page refresh
 window.onload = () => {
     for (let i = 1; i < localStorage.length; i++) {
         showData(i);
@@ -24,6 +26,7 @@ window.onload = () => {
     }
 }
 
+// store the row counter before refresh
 window.onbeforeunload = () => {
     if (localStorage.length == i && localStorage.length != 0) {
         localStorage.setItem(0, i);
@@ -41,31 +44,35 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoibWFyY2VhdWRhdmlkIiwiYSI6ImNqaDYzMmI4bjFkaXczMnByd3NqMmRlMmIifQ.JMtTasa8j29837RLwwcVOQ'
 }).addTo(map);
 
+// get the current position
 function getCurrentPosition() {
     if (navigator.geolocation) {
         // return a coordinate object to the function specified in the parameter.
-        navigator.geolocation.getCurrentPosition(showCurrentPosition);
+        navigator.geolocation.getCurrentPosition(storePosition);
     } else {
         console.log("Sorry, Geolocation is not enabled in your browser");
     }
 }
 
+// track the user position
 function watchCurrentPosition() {
     if (navigator.geolocation) {
         // return a coordinate object to the function specified in the parameter.
-        navigator.geolocation.watchPosition(showCurrentPosition);
+        navigator.geolocation.watchPosition(storePosition);
     } else {
         console.log("Sorry, Geolocation is not enabled in your browser");
     }
 }
 
+// set the marker on the user position and zoom in
 function setMapPosition(lat, long) {
     map.setView([lat, long], 13);
     var marker = L.marker([lat, long]).addTo(map);
     marker.bindPopup("<b>You are here !</b>").openPopup();
 }
 
-function showCurrentPosition(position) {
+// get the user position and store it in browser's localStorage
+function storePosition(position) {
     var date = new Date();
     coords.time = date.toLocaleTimeString();
     coords.lat = position.coords.latitude;
@@ -77,6 +84,7 @@ function showCurrentPosition(position) {
     showData(i);
 }
 
+// show the stored position in a html table
 function showData(index) {
     var data = JSON.parse(localStorage.getItem(index));
     var table = document.getElementById('table').getElementsByTagName('tbody')[0];
@@ -91,6 +99,7 @@ function showData(index) {
     long.innerHTML = data.long.toFixed(5)
 }
 
+// set an event on row to retrieve former user's position
 function dataEvents(i) {
     var table = document.getElementById('table');
     var rows = table.getElementsByTagName('tr');
@@ -103,6 +112,7 @@ function dataEvents(i) {
     })
 }
 
+// click listener on position buttons
 geolocate.addEventListener('click', () => {
     getCurrentPosition();
 })
@@ -111,11 +121,13 @@ track.addEventListener('click', () => {
     watchCurrentPosition();
 })
 
+// click listener on burger icon
 menu.addEventListener('click', () => {
     panel.classList.toggle('active');
     del.classList.toggle('btn-active');
 })
 
+// click listener on delete button
 del.addEventListener('click', () => {
     let table = document.getElementById('table');
     table.getElementsByTagName('tbody')[0].innerHTML = "";
