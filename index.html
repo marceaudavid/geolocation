@@ -6,17 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Geolocalisation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
-    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/icon.svg">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/leaflet.css" />
 </head>
 
 <body>
-    <svg id="menu" viewBox="0 0 24 24">
-        <path fill="#ffffff" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    <svg id="menu" class="menu visible" viewBox="0 0 24 24">
+        <path fill="#000000" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+    <svg id="close" class="close" viewBox="0 0 24 24">
+        <path fill="#ffffff" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
     </svg>
     <div id="panel" class="panel">
-        <button class="btn delete" id="delete">
+        <button id="delete" class="btn delete">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                 <path fill="#ffffff" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
             </svg>
@@ -37,6 +40,13 @@
         </div>
     </div>
     <div id="map"></div>
+    <div class="popup">
+        <svg id="pop-close" viewBox="0 0 24 24">
+            <path fill="#ffffff" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+        </svg>
+        <p class="pop-title">Erreur :</p>
+        <p class="pop-text" id="error"></p>
+    </div>
     <div class="btn-group">
         <button class="btn" id="geolocate">
             <svg viewBox="0 0 24 24">

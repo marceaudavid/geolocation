@@ -5,9 +5,12 @@ var coords = {
     lat: 0,
     long: 0
 };
-var menu = document.getElementById('menu');
+var panelMenu = document.getElementById('menu');
+var panelClose = document.getElementById('close')
 var panel = document.getElementById('panel');
 var del = document.getElementById('delete');
+var popClose = document.getElementById('pop-close');
+var popText = document.getElementById('error');
 
 var i;
 
@@ -47,8 +50,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 // get the current position
 function getCurrentPosition() {
     if (navigator.geolocation) {
-        // return a coordinate object to the function specified in the parameter.
-        navigator.geolocation.getCurrentPosition(storePosition);
+        navigator.geolocation.getCurrentPosition(storePosition, showError);
     } else {
         console.log("Sorry, Geolocation is not enabled in your browser");
     }
@@ -57,8 +59,7 @@ function getCurrentPosition() {
 // track the user position
 function watchCurrentPosition() {
     if (navigator.geolocation) {
-        // return a coordinate object to the function specified in the parameter.
-        navigator.geolocation.watchPosition(storePosition);
+        navigator.geolocation.watchPosition(storePosition, showError);
     } else {
         console.log("Sorry, Geolocation is not enabled in your browser");
     }
@@ -82,6 +83,27 @@ function storePosition(position) {
     i++;
     localStorage.setItem(i, coordsJSON);
     showData(i);
+}
+
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            popText.parentElement.style.visibility = "visible";
+            popText.innerHTML = "Permission d'utiliser la geolocalisation refusée";
+            break;
+        case error.POSITION_UNAVAILABLE:
+            popText.parentElement.style.visibility = "visible";
+            popText.innerHTML = "Localisation indisponible";
+            break;
+        case error.TIMEOUT:
+            popText.parentElement.style.visibility = "visible";
+            popText.innerHTML = "La requête a expiré";
+            break;
+        case error.UNKNOWN_ERROR:
+            popText.parentElement.style.visibility = "visible";
+            popText.innerHTML = "Erreur inconnue";
+            break;
+    }
 }
 
 // show the stored position in a html table
@@ -122,10 +144,21 @@ track.addEventListener('click', () => {
 })
 
 // click listener on burger icon
-menu.addEventListener('click', () => {
+panelMenu.addEventListener('click', () => {
     panel.classList.toggle('active');
     del.classList.toggle('btn-active');
+    panelMenu.classList.toggle('visible');
+    panelClose.classList.toggle('visible');
 })
+
+// click listener on close icon
+panelClose.addEventListener('click', () => {
+    panel.classList.toggle('active');
+    del.classList.toggle('visible');
+    panelMenu.classList.toggle('visible');
+    panelClose.classList.toggle('visible');
+});
+
 
 // click listener on delete button
 del.addEventListener('click', () => {
@@ -133,4 +166,8 @@ del.addEventListener('click', () => {
     table.getElementsByTagName('tbody')[0].innerHTML = "";
     localStorage.clear();
     i = 0;
+})
+
+popClose.addEventListener('click', () => {
+    popClose.parentElement.style.visibility = 'hidden';
 })
