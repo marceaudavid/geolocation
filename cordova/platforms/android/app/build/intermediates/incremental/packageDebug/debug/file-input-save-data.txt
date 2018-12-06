@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Dec 05 23:51:38 CET 2018
+#Thu Dec 06 00:22:06 CET 2018
 17.baseType=DIRECTORY
 4.path=www/assets/fonts/Montserrat-Light.ttf
 25.base=C\:\\Users\\marceau\\Documents\\geolocation\\cordova\\platforms\\android\\app\\build\\intermediates\\assets\\debug
