@@ -13,7 +13,7 @@
   "keywords": [
     "geolocation"
   ],
-  "author": "Marceau DAvid",
+  "author": "Marceau David",
   "devDependencies": {
     "electron": "^3.0.7"
   },
