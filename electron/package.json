@@ -1,0 +1,23 @@
+{
+  "name": "geolocation",
+  "version": "1.0.0",
+  "description": "A sample Cordova application to use the Javascript Geolocation API on desktop",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=builds",
+    "package-win": "electron-packager . electron --overwrite --asar=true --platform=win32 --arch=ia32 --prune=true --out=builds --version-string.ProductName=\"Geolocation\"",
+    "package-linux": "electron-packager . electron --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=builds"
+  },
+  "repository": "https://github.com/marceaudavid/geolocation/electron",
+  "keywords": [
+    "geolocation"
+  ],
+  "author": "Marceau David",
+  "devDependencies": {
+    "electron": "^3.0.7"
+  },
+  "dependencies": {
+    "electron-packager": "^13.0.0"
+  }
+}
